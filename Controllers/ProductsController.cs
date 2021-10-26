@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using ProductManagementAPI.Dtos;
 using ProductManagementAPI.Entities;
 using ProductManagementAPI.Repositories;
 
@@ -19,14 +20,14 @@ namespace ProductManagementAPI.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Product> GetProducts()
+        public IEnumerable<ProductDto> GetProducts()
         {
-            var products = repository.GetProducts();
+            var products = repository.GetProducts().Select(product => product.AsDto());
             return products;
         }
 
         [HttpGet("{sku}")]
-        public ActionResult<Product> GetProduct(Guid sku)
+        public ActionResult<ProductDto> GetProduct(Guid sku)
         {
 
             var product = repository.GetProduct(sku);
@@ -35,7 +36,7 @@ namespace ProductManagementAPI.Controllers
                 return NotFound();
             }
 
-            return Ok(product);
+            return Ok(product.AsDto());
         }
     }
 }

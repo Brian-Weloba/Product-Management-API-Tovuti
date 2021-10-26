@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 
-namespace ProductManagementAPI.Entities
+namespace ProductManagementAPI.Dtos
 {
-    public record Product
+    public record ProductDto
     {
 
         private Random random = new Random();
@@ -16,7 +16,7 @@ namespace ProductManagementAPI.Entities
         public Guid SKU { get; init; }
         public Dictionary<string, string> Attributes { get; init; }
 
-        // public Product(string vendor, string name, string brand, decimal price, int quantity, DateTimeOffset createdDate, Dictionary<string, string> attributes)
+        // public ProductDto(string vendor, string name, string brand, decimal price, int quantity, DateTimeOffset createdDate, Dictionary<string, string> attributes)
         // {
         //     Vendor = vendor;
         //     Name = name;
@@ -28,7 +28,7 @@ namespace ProductManagementAPI.Entities
         //     Attributes = attributes;
         // }
 
-        // public Product(string vendor, string name, decimal price, int quantity, DateTimeOffset createdDate)
+        // public ProductDto(string vendor, string name, decimal price, int quantity, DateTimeOffset createdDate)
         // {
         //     Vendor = vendor;
         //     Name = name;
@@ -39,10 +39,9 @@ namespace ProductManagementAPI.Entities
         //     Attributes = null;
         // }
 
-        public Product() {
+        public ProductDto()
+        {
             SKU = Guid.NewGuid();
-         }
-
-
+        }
     }
 }
