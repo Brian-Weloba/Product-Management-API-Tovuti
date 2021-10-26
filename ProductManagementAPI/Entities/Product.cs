@@ -17,22 +17,22 @@ namespace ProductManagementAPI.Entities
 
         public Product(string vendor, string name, decimal price, int quantity, DateTimeOffset createdDate, Dictionary<string, string> attributes)
         {
-            Vendor = vendor;
-            Name = name;
-            Price = price;
+            this.Vendor = vendor;
+            this.Name = name;
+            this.Price = price;
             this.quantity = quantity;
-            CreatedDate = createdDate;
-            SKU = vendor.Substring(0, 3) + name.Substring(0, 3) + random.Next(99);
+            this.CreatedDate = createdDate;
+            this.SKU = vendor.Substring(0, 3) + name.Substring(0, 3) + random.Next(99);
             this.attributes = attributes;
         }
         public Product(string vendor, string name, decimal price, int quantity, DateTimeOffset createdDate)
         {
-            Vendor = vendor;
-            Name = name;
-            Price = price;
+            this.Vendor = vendor;
+            this.Name = name;
+            this.Price = price;
             this.quantity = quantity;
-            CreatedDate = createdDate;
-            SKU = vendor.Substring(0, 3) + name.Substring(0, 3) + random.Next(99);
+            this.CreatedDate = createdDate;
+            this.SKU = vendor.Substring(0, 3) + name.Substring(0, 3) + random.Next(99);
             this.attributes = null;
         }
 
