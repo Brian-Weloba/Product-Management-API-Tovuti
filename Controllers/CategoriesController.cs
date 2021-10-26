@@ -40,7 +40,7 @@ namespace ProductManagementAPI.Controllers
 
         }
 
-        [HttpPost]
+        [HttpPost("/productCategory")]
         public ActionResult<CategoryDto> CreateCAtegory(CreateCategoryDto categoryDto)
         {
             ProductCategory productCategory = new()
