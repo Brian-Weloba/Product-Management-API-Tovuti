@@ -5,7 +5,7 @@ namespace ProductManagementAPI
 {
     public static class Extensions
     {
-        public static ProductDto AsDto(this Product product)
+        public static ProductDto AsProductDto(this Product product)
         {
             return new ProductDto
             {
@@ -16,6 +16,16 @@ namespace ProductManagementAPI
                 CreatedDate = product.CreatedDate,
                 Attributes = product.Attributes,
                 SKU = product.SKU
+            };
+        }
+
+        public static CategoryDto AsCategoryDto(this ProductCategory productCategory)
+        {
+            return new CategoryDto
+            {
+                Id = productCategory.Id,
+                Name = productCategory.Name,
+                Description = productCategory.Description
             };
         }
     }

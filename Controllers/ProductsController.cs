@@ -23,7 +23,7 @@ namespace ProductManagementAPI.Controllers
         [HttpGet]
         public IEnumerable<ProductDto> GetProducts()
         {
-            var products = repository.GetProducts().Select(product => product.AsDto());
+            var products = repository.GetProducts().Select(product => product.AsProductDto());
             return products;
         }
 
@@ -39,7 +39,7 @@ namespace ProductManagementAPI.Controllers
                 return NotFound();
             }
 
-            return product.AsDto();
+            return product.AsProductDto();
         }
 
         //POST /products
@@ -56,7 +56,7 @@ namespace ProductManagementAPI.Controllers
             };
             repository.CreateProduct(product);
 
-            return CreatedAtAction(nameof(GetProduct), new { sku = product.SKU }, product.AsDto());
+            return CreatedAtAction(nameof(GetProduct), new { sku = product.SKU }, product.AsProductDto());
         }
 
         //PUT /products/{sku}
