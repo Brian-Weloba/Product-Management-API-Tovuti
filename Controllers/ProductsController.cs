@@ -8,6 +8,7 @@ using ProductManagementAPI.Repositories;
 
 namespace ProductManagementAPI.Controllers
 {
+    //
     [ApiController]
     [Route("products")]
     public class ProductsController : ControllerBase
@@ -26,6 +27,7 @@ namespace ProductManagementAPI.Controllers
             return products;
         }
 
+        //GET /products/{sku}
         [HttpGet("{sku}")]
         public ActionResult<ProductDto> GetProduct(Guid sku)
         {
@@ -40,6 +42,7 @@ namespace ProductManagementAPI.Controllers
             return product.AsDto();
         }
 
+        //POST /products
         [HttpPost]
         public ActionResult<ProductDto> CreateProduct(CreateProductDto productDto)
         {
@@ -56,6 +59,7 @@ namespace ProductManagementAPI.Controllers
             return CreatedAtAction(nameof(GetProduct), new { sku = product.SKU }, product.AsDto());
         }
 
+        //PUT /products/{sku}
         [HttpPut("{sku}")]
         public ActionResult UpdateProduct(Guid sku, UpdateProductDto productDto)
         {
@@ -78,13 +82,14 @@ namespace ProductManagementAPI.Controllers
 
             return NoContent();
         }
-
+        //DELETE /products/{sku}
         [HttpDelete("{sku}")]
         public ActionResult DeleteProduct(Guid sku)
         {
             var existingProduct = repository.GetProduct(sku);
 
-            if(existingProduct is null) {
+            if (existingProduct is null)
+            {
                 return NoContent();
             }
 
