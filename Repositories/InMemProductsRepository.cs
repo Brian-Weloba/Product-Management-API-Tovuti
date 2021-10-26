@@ -23,5 +23,10 @@ namespace ProductManagementAPI.Repositories
         {
             return products.Where(product => product.SKU == sku).SingleOrDefault();
         }
+
+        public void CreateProduct(Product product)
+        {
+            products.Add(product);
+        }
     }
 }

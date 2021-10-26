@@ -38,5 +38,22 @@ namespace ProductManagementAPI.Controllers
 
             return Ok(product.AsDto());
         }
+
+        [HttpPost]
+        public ActionResult<ProductDto> CreateProduct(CreateProductDto productDto)
+        {
+            Product product = new Product()
+            {
+                Name = productDto.Name,
+                Brand = productDto.Brand,
+                Price = productDto.Price,
+                CreatedDate = DateTimeOffset.UtcNow,
+                Vendor = productDto.Vendor,
+                SKU = Guid.NewGuid()
+            };
+            repository.CreateProduct(product);
+
+            return CreatedAtAction(nameof(GetProduct), new { sku = product.SKU }, product.AsDto());
+        }
     }
 }

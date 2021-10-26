@@ -7,5 +7,6 @@ namespace ProductManagementAPI.Repositories{
     {
         Product GetProduct(Guid sku);
         IEnumerable<Product> GetProducts();
+        void CreateProduct(Product product);
     }
 }
