@@ -7,14 +7,13 @@ namespace ProductManagementAPI.Dtos
     {
 
         private Random random = new Random();
-        public string Vendor { get; init; }
         public string Name { get; init; }
         public string Brand { get; init; }
         public decimal Price { get; init; }
         public int Quantity { get; init; }
         public DateTimeOffset CreatedDate { get; init; }
         public Guid SKU { get; init; }
-        public Dictionary<string, string> Attributes { get; init; }
+        public Dictionary<string, List<string>> Attributes { get; init; }
 
         // public ProductDto(string vendor, string name, string brand, decimal price, int quantity, DateTimeOffset createdDate, Dictionary<string, string> attributes)
         // {

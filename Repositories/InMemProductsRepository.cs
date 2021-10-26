@@ -9,9 +9,9 @@ namespace ProductManagementAPI.Repositories
     {
         private readonly List<Product> products = new()
         {
-            new Product { Vendor = "Nakumatt", Name = "Toothpaste", Brand = "Aquafresh", Price = 250, Quantity = 5, CreatedDate = System.DateTimeOffset.UtcNow },
-            new Product { Vendor = "Naivas", Name = "Toothpaste", Brand = "Colgate", Price = 200, Quantity = 7, CreatedDate = System.DateTimeOffset.UtcNow },
-            new Product { Vendor = "Quickmatt", Name = "Toothpaste", Brand = "Aquafresh", Price = 260, Quantity = 9, CreatedDate = System.DateTimeOffset.UtcNow }
+            new Product {  Name = "Toothpaste", Brand = "Aquafresh", Price = 250, Quantity = 5, CreatedDate = System.DateTimeOffset.UtcNow },
+            new Product {  Name = "Toothpaste", Brand = "Colgate", Price = 200, Quantity = 7, CreatedDate = System.DateTimeOffset.UtcNow },
+            new Product {  Name = "Toothpaste", Brand = "Aquafresh", Price = 260, Quantity = 9, CreatedDate = System.DateTimeOffset.UtcNow,SKU = Guid.NewGuid() }
         };
 
         public IEnumerable<Product> GetProducts()
@@ -27,6 +27,18 @@ namespace ProductManagementAPI.Repositories
         public void CreateProduct(Product product)
         {
             products.Add(product);
+        }
+
+        public void UpdateProduct(Product updatedProduct)
+        {
+            var index = products.FindIndex(existingProduct => existingProduct.SKU == updatedProduct.SKU);
+            products[index] = updatedProduct;
+        }
+
+        public void DeleteProduct(Guid sku)
+        {
+            var index = products.FindIndex(existingProduct => existingProduct.SKU == sku);
+            products.RemoveAt(index);
         }
     }
 }

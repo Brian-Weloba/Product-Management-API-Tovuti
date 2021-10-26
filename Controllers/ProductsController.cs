@@ -31,29 +31,67 @@ namespace ProductManagementAPI.Controllers
         {
 
             var product = repository.GetProduct(sku);
+
             if (product is null)
             {
                 return NotFound();
             }
 
-            return Ok(product.AsDto());
+            return product.AsDto();
         }
 
         [HttpPost]
         public ActionResult<ProductDto> CreateProduct(CreateProductDto productDto)
         {
-            Product product = new Product()
+            Product product = new()
             {
                 Name = productDto.Name,
                 Brand = productDto.Brand,
                 Price = productDto.Price,
-                CreatedDate = DateTimeOffset.UtcNow,
-                Vendor = productDto.Vendor,
-                SKU = Guid.NewGuid()
+                Quantity = productDto.Quantity,
+                CreatedDate = DateTimeOffset.UtcNow
             };
             repository.CreateProduct(product);
 
             return CreatedAtAction(nameof(GetProduct), new { sku = product.SKU }, product.AsDto());
+        }
+
+        [HttpPut("{sku}")]
+        public ActionResult UpdateProduct(Guid sku, UpdateProductDto productDto)
+        {
+            var existingProduct = repository.GetProduct(sku);
+
+            if (existingProduct is null)
+            {
+                return NotFound();
+            }
+
+            Product updatedProduct = existingProduct with
+            {
+                Name = productDto.Name,
+                Brand = productDto.Brand,
+                Price = productDto.Price,
+                Quantity = productDto.Quantity,
+            };
+
+            repository.UpdateProduct(updatedProduct);
+
+            return NoContent();
+        }
+
+        [HttpDelete("{sku}")]
+        public ActionResult DeleteProduct(Guid sku)
+        {
+            var existingProduct = repository.GetProduct(sku);
+
+            if(existingProduct is null) {
+                return NoContent();
+            }
+
+            repository.DeleteProduct(sku);
+
+            return NoContent();
+
         }
     }
 }
