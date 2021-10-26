@@ -98,5 +98,25 @@ namespace ProductManagementAPI.Controllers
             return NoContent();
 
         }
+
+        [HttpPut("/productAttributes")]
+        public ActionResult AddAttributes(Guid sku, UpdateProductAttributesDto productDto)
+        {
+            var existingProduct = repository.GetProduct(sku);
+
+            if (existingProduct is null)
+            {
+                return NotFound();
+            }
+
+            Product updatedProduct = existingProduct with
+            {
+                Attributes = productDto.Attributes
+            };
+
+            repository.UpdateProduct(updatedProduct);
+
+            return NoContent();
+        }
     }
 }
