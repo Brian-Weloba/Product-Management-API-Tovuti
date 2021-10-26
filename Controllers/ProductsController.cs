@@ -11,11 +11,11 @@ namespace ProductManagementAPI.Controllers
     [Route("products")]
     public class ProductsController : ControllerBase
     {
-        private readonly InMemProductsRepository repository;
+        private readonly IProductsRepository repository;
 
-        public ProductsController()
+        public ProductsController(IProductsRepository repository)
         {
-            repository = new InMemProductsRepository();
+            this.repository = repository;
         }
 
         [HttpGet]
@@ -26,8 +26,16 @@ namespace ProductManagementAPI.Controllers
         }
 
         [HttpGet("{sku}")]
-        public Product GetProduct(Guid sku){
-            return repository.GetProduct(sku);
+        public ActionResult<Product> GetProduct(Guid sku)
+        {
+
+            var product = repository.GetProduct(sku);
+            if (product is null)
+            {
+                return NotFound();
+            }
+
+            return Ok(product);
         }
     }
 }
