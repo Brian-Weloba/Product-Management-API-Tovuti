@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using ProductManagementAPI.Dtos;
 
 namespace ProductManagementAPI.Entities
 {

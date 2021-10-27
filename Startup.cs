@@ -36,6 +36,7 @@ namespace ProductManagementAPI
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             services.AddSingleton<IProductsCategoryRepo,InMemProductsCategoryRepo>();
             services.AddSingleton<IProductsRepository, InMemProductsRepository>();
+            services.AddScoped<IProductRepository,ProductRepository>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

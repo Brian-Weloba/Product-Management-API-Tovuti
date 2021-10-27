@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ProductManagementAPI.Dtos;
 using ProductManagementAPI.Entities;
@@ -13,38 +14,45 @@ namespace ProductManagementAPI.Controllers
     [Route("products")]
     public class ProductsController : ControllerBase
     {
-        private readonly IProductsRepository repository;
+        // private readonly IProductsRepository repository;
 
-        public ProductsController(IProductsRepository repository)
+        // public ProductsController(IProductsRepository repository)
+        // {
+        //     this.repository = repository;
+        // }
+
+        private readonly IProductRepository _repo;
+
+        public ProductsController(IProductRepository _repo)
         {
-            this.repository = repository;
+            this._repo = _repo;
         }
 
         [HttpGet]
-        public IEnumerable<ProductDto> GetProducts()
+        public async Task<ActionResult<IEnumerable<ProductDto>>> GetProducts()
         {
-            var products = repository.GetProducts().Select(product => product.AsProductDto());
-            return products;
+            var products =await  _repo.GetProducts();
+            return Ok(products);
         }
 
         //GET /products/{sku}
         [HttpGet("{sku}")]
-        public ActionResult<ProductDto> GetProduct(Guid sku)
+        public async Task<ActionResult<ProductDto>> GetProduct(Guid sku)
         {
 
-            var product = repository.GetProduct(sku);
+            var product = await _repo.GetProduct(sku);
 
             if (product is null)
             {
                 return NotFound();
             }
 
-            return product.AsProductDto();
+            return Ok(product.AsProductDto());
         }
 
         //POST /products
         [HttpPost]
-        public ActionResult<ProductDto> CreateProduct(CreateProductDto productDto)
+        public async Task<ActionResult<ProductDto>> CreateProduct(CreateProductDto productDto)
         {
             Product product = new()
             {
@@ -54,16 +62,15 @@ namespace ProductManagementAPI.Controllers
                 Quantity = productDto.Quantity,
                 CreatedDate = DateTimeOffset.UtcNow
             };
-            repository.CreateProduct(product);
-
-            return CreatedAtAction(nameof(GetProduct), new { sku = product.SKU }, product.AsProductDto());
+            await _repo.CreateProduct(product);
+            return Ok();
         }
 
         //PUT /products/{sku}
         [HttpPut("{sku}")]
-        public ActionResult UpdateProduct(Guid sku, UpdateProductDto productDto)
+        public async Task<ActionResult> UpdateProduct(Guid sku, UpdateProductDto productDto)
         {
-            var existingProduct = repository.GetProduct(sku);
+            var existingProduct = await _repo.GetProduct(sku);
 
             if (existingProduct is null)
             {
@@ -78,31 +85,31 @@ namespace ProductManagementAPI.Controllers
                 Quantity = productDto.Quantity,
             };
 
-            repository.UpdateProduct(updatedProduct);
+            await _repo.UpdateProduct(updatedProduct);
 
             return NoContent();
         }
         //DELETE /products/{sku}
         [HttpDelete("{sku}")]
-        public ActionResult DeleteProduct(Guid sku)
+        public async Task<ActionResult> DeleteProduct(Guid sku)
         {
-            var existingProduct = repository.GetProduct(sku);
+            var existingProduct = _repo.GetProduct(sku);
 
             if (existingProduct is null)
             {
                 return NoContent();
             }
 
-            repository.DeleteProduct(sku);
+            await _repo.DeleteProduct(sku);
 
-            return NoContent();
+            return Ok();
 
         }
 
         [HttpPut("/productAttributes")]
-        public ActionResult AddAttributes(Guid sku, UpdateProductAttributesDto productDto)
+        public async Task<ActionResult> AddAttributes(Guid sku, UpdateProductAttributesDto productDto)
         {
-            var existingProduct = repository.GetProduct(sku);
+            var existingProduct =await _repo.GetProduct(sku);
 
             if (existingProduct is null)
             {
@@ -114,7 +121,7 @@ namespace ProductManagementAPI.Controllers
                 Attributes = productDto.Attributes
             };
 
-            repository.UpdateProduct(updatedProduct);
+            await _repo.UpdateProduct(updatedProduct);
 
             return NoContent();
         }
