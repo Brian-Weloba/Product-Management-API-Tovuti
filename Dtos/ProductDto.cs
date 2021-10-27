@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using ProductManagementAPI.Entities;
 
 namespace ProductManagementAPI.Dtos
 {
@@ -13,7 +14,7 @@ namespace ProductManagementAPI.Dtos
         public int Quantity { get; init; }
         public DateTimeOffset CreatedDate { get; init; }
         public Guid SKU { get; init; }
-        public Dictionary<string, List<string>> Attributes { get; init; }
+        public List<ProductAttributes> Attributes { get; init; }
 
         // public ProductDto(string vendor, string name, string brand, decimal price, int quantity, DateTimeOffset createdDate, Dictionary<string, string> attributes)
         // {

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace ProductManagementAPI.Entities
 {
@@ -14,8 +15,9 @@ namespace ProductManagementAPI.Entities
         public int Quantity { get; init; }
         public int CategoryId { get; init; }
         public DateTimeOffset CreatedDate { get; init; }
-        public Guid SKU { get; init; }
-        public Dictionary<string, List<string>> Attributes { get; init; }
+        [Key]
+        public Guid SKU { get; set; }
+        public List<ProductAttributes> Attributes { get; init; }
 
         // public Product(string vendor, string name, string brand, decimal price, int quantity, DateTimeOffset createdDate, Dictionary<string, string> attributes)
         // {
