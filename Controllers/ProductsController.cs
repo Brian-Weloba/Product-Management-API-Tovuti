@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ProductManagementAPI.Dtos;
@@ -24,7 +23,7 @@ namespace ProductManagementAPI.Controllers
         private readonly IProductRepository _repo;
         private readonly IAttributeRepository _attRepo;
 
-        public ProductsController(IProductRepository _repo,IAttributeRepository _attRepo)
+        public ProductsController(IProductRepository _repo, IAttributeRepository _attRepo)
         {
             this._repo = _repo;
             this._attRepo = _attRepo;

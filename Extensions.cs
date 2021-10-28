@@ -35,7 +35,7 @@ namespace ProductManagementAPI
             {
                 Id = productAttributes.Id,
                 Name = productAttributes.Name,
-                ProductSKU =productAttributes.ProductSKU,
+                ProductSKU = productAttributes.ProductSKU,
                 AttributeValues = productAttributes.AttributeValues
             };
         }

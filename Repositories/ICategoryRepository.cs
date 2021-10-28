@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using ProductManagementAPI.Entities;
 
-namespace ProductManagementAPI.Repositories{
+namespace ProductManagementAPI.Repositories
+{
     public interface ICategoryRepository
     {
         Task CreateProductCategory(ProductCategory productCategory);

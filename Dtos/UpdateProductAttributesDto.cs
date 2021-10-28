@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using ProductManagementAPI.Entities;
 
 namespace ProductManagementAPI.Dtos

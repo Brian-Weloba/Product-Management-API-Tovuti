@@ -12,7 +12,7 @@ namespace ProductManagementAPI.Dtos
         [Required]
         public decimal Price { get; init; }
         [Required]
-        [Range(1,1000)]
+        [Range(1, 1000)]
         public int Quantity { get; init; }
         // public Guid SKU { get; init; }
         // public CreateProductDto()

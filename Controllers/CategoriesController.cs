@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ProductManagementAPI.Dtos;
@@ -57,7 +56,8 @@ namespace ProductManagementAPI.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateCategory(Guid id, UpdateCategoryDto categoryDto)
         {
-            ProductCategory updatedCategory = new(){
+            ProductCategory updatedCategory = new()
+            {
                 Name = categoryDto.Name,
                 Description = categoryDto.Description
             };
@@ -69,7 +69,7 @@ namespace ProductManagementAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteCategory(Guid id)
         {
-            var existingCategory =_repo.GetProductCategory(id);
+            var existingCategory = _repo.GetProductCategory(id);
 
             if (existingCategory is null)
             {

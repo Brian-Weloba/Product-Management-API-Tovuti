@@ -1,16 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using ProductManagementAPI.Entities;
 using ProductManagementAPI.Repositories;
@@ -34,9 +28,9 @@ namespace ProductManagementAPI
             options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
-            services.AddScoped<ICategoryRepository,CategoryRepository>();
-            services.AddScoped<IProductRepository,ProductRepository>();
-            services.AddScoped<IAttributeRepository,AttributeRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IAttributeRepository, AttributeRepository>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

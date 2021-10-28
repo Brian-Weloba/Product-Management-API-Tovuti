@@ -48,7 +48,7 @@ namespace ProductManagementAPI.Repositories
         //     itemToUpdate.Attributes = updatedProduct.Attributes;
 
         //     await _context.SaveChangesAsync();
-            
+
         // }
 
         public async Task UpdateProduct(Product updatedProduct)
@@ -70,7 +70,7 @@ namespace ProductManagementAPI.Repositories
                 itemToUpdate.Price = updatedProduct.Price;
             }
             if (itemToUpdate.Quantity != 0)
-            
+
             {
                 itemToUpdate.Quantity = updatedProduct.Quantity;
             }

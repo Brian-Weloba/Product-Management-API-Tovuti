@@ -1,5 +1,4 @@
 using System;
-using System.ComponentModel.DataAnnotations;
 
 namespace ProductManagementAPI.Entities
 {
@@ -8,8 +7,9 @@ namespace ProductManagementAPI.Entities
 
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public string Description{get;set;}
-        public ProductCategory(){
+        public string Description { get; set; }
+        public ProductCategory()
+        {
             Id = Guid.NewGuid();
         }
     }

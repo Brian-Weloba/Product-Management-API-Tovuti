@@ -22,7 +22,7 @@ namespace ProductManagementAPI.Repositories
 
         public async Task DeleteProductCategory(Guid id)
         {
-             var itemToDelete = await _context.ProductCategory.FindAsync(id);
+            var itemToDelete = await _context.ProductCategory.FindAsync(id);
             if (itemToDelete is null)
                 throw new NullReferenceException();
 
@@ -42,7 +42,7 @@ namespace ProductManagementAPI.Repositories
 
         public async Task UpdateProductCategory(ProductCategory updatedProductCategory)
         {
-             var itemToUpdate = await _context.ProductCategory.FindAsync(updatedProductCategory.Id);
+            var itemToUpdate = await _context.ProductCategory.FindAsync(updatedProductCategory.Id);
             if (itemToUpdate is null)
                 throw new NullReferenceException();
 
