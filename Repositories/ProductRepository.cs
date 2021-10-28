@@ -39,17 +39,17 @@ namespace ProductManagementAPI.Repositories
             return await _context.Products.ToListAsync();
         }
 
-        public async Task UpdateAttributes(Product updatedProduct)
-        {
-            var itemToUpdate = await _context.Products.FindAsync(updatedProduct.SKU);
-            if (itemToUpdate is null)
-                throw new NullReferenceException();
+        // public async Task UpdateAttributes(Product updatedProduct)
+        // {
+        //     var itemToUpdate = await _context.Products.FindAsync(updatedProduct.SKU);
+        //     if (itemToUpdate is null)
+        //         throw new NullReferenceException();
 
-            itemToUpdate.Attributes = updatedProduct.Attributes;
+        //     itemToUpdate.Attributes = updatedProduct.Attributes;
 
-            await _context.SaveChangesAsync();
+        //     await _context.SaveChangesAsync();
             
-        }
+        // }
 
         public async Task UpdateProduct(Product updatedProduct)
         {
