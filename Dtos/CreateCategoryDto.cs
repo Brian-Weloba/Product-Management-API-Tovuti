@@ -1,9 +1,13 @@
+using System;
+using System.ComponentModel.DataAnnotations;
+
 namespace ProductManagementAPI.Dtos
 {
     public record CreateCategoryDto
     {
-        public int Id { get; init; }
+        [Required]
         public string Name { get; init; }
+        [Required]
         public string Description { get; init; }
     }
 }

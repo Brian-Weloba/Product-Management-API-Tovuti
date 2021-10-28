@@ -22,10 +22,12 @@ namespace ProductManagementAPI.Controllers
         // }
 
         private readonly IProductRepository _repo;
+        private readonly IAttributeRepository _attRepo;
 
-        public ProductsController(IProductRepository _repo)
+        public ProductsController(IProductRepository _repo,IAttributeRepository _attRepo)
         {
             this._repo = _repo;
+            this._attRepo = _attRepo;
         }
 
         [HttpGet]
@@ -70,13 +72,6 @@ namespace ProductManagementAPI.Controllers
         [HttpPut("{sku}")]
         public async Task<ActionResult> UpdateProduct(Guid sku, UpdateProductDto productDto)
         {
-            // var existingProduct = await _repo.GetProduct(sku);
-
-            // if (existingProduct is null)
-            // {
-            //     return NotFound();
-            // }
-
             Product updatedProduct = new()
             {
                 SKU = sku,
@@ -108,7 +103,7 @@ namespace ProductManagementAPI.Controllers
         }
 
         [HttpPut("/productAttributes")]
-        public async Task<ActionResult> AddAttributes(Guid sku, UpdateProductAttributesDto productDto)
+        public async Task<ActionResult> AddAttributes(Guid sku, CreateAttributeDto productDto)
         {
             // var existingProduct =await _repo.GetProduct(sku);
 
@@ -117,13 +112,14 @@ namespace ProductManagementAPI.Controllers
             //     return NotFound();
             // }
 
-            Product updatedProduct = new()
+            ProductAttributes updatedProduct = new()
             {
-                SKU = sku,
-                Attributes = productDto.Attributes
+                ProductSKU = sku,
+                Name = productDto.Name,
+                AttributeValues = productDto.AttributeValues
             };
 
-            await _repo.UpdateAttributes(updatedProduct);
+            await _attRepo.CreateAttribute(updatedProduct);
 
             return Ok();
         }
