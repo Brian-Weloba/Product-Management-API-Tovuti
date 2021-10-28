@@ -34,9 +34,9 @@ namespace ProductManagementAPI
             options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
-            services.AddSingleton<IProductsCategoryRepo,InMemProductsCategoryRepo>();
-            services.AddSingleton<IProductsRepository, InMemProductsRepository>();
+            services.AddScoped<ICategoryRepository,CategoryRepository>();
             services.AddScoped<IProductRepository,ProductRepository>();
+            services.AddScoped<IAttributeRepository,AttributeRepository>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

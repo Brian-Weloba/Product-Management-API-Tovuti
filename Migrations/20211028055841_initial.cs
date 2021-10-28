@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace ProductManagementAPI.Migrations
 {
@@ -13,8 +12,7 @@ namespace ProductManagementAPI.Migrations
                 name: "ProductCategory",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: true),
                     Description = table.Column<string>(type: "text", nullable: true)
                 },
@@ -44,26 +42,26 @@ namespace ProductManagementAPI.Migrations
                 name: "ProductAttributes",
                 columns: table => new
                 {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
                     ProductSKU = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: true),
-                    attributeValues = table.Column<List<string>>(type: "text[]", nullable: true),
-                    ProductSKU1 = table.Column<Guid>(type: "uuid", nullable: true)
+                    AttributeValues = table.Column<List<string>>(type: "text[]", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductAttributes", x => x.ProductSKU);
+                    table.PrimaryKey("PK_ProductAttributes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProductAttributes_Products_ProductSKU1",
-                        column: x => x.ProductSKU1,
+                        name: "FK_ProductAttributes_Products_ProductSKU",
+                        column: x => x.ProductSKU,
                         principalTable: "Products",
                         principalColumn: "SKU",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductAttributes_ProductSKU1",
+                name: "IX_ProductAttributes_ProductSKU",
                 table: "ProductAttributes",
-                column: "ProductSKU1");
+                column: "ProductSKU");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

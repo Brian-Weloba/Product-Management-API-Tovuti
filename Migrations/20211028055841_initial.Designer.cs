@@ -11,7 +11,7 @@ using ProductManagementAPI.Entities;
 namespace ProductManagementAPI.Migrations
 {
     [DbContext(typeof(ProductContext))]
-    [Migration("20211028014048_initial")]
+    [Migration("20211028055841_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -53,32 +53,31 @@ namespace ProductManagementAPI.Migrations
 
             modelBuilder.Entity("ProductManagementAPI.Entities.ProductAttributes", b =>
                 {
-                    b.Property<Guid>("ProductSKU")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
+
+                    b.Property<List<string>>("AttributeValues")
+                        .HasColumnType("text[]");
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.Property<Guid?>("ProductSKU1")
+                    b.Property<Guid>("ProductSKU")
                         .HasColumnType("uuid");
 
-                    b.Property<List<string>>("attributeValues")
-                        .HasColumnType("text[]");
+                    b.HasKey("Id");
 
-                    b.HasKey("ProductSKU");
-
-                    b.HasIndex("ProductSKU1");
+                    b.HasIndex("ProductSKU");
 
                     b.ToTable("ProductAttributes");
                 });
 
             modelBuilder.Entity("ProductManagementAPI.Entities.ProductCategory", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Description")
                         .HasColumnType("text");
@@ -95,7 +94,9 @@ namespace ProductManagementAPI.Migrations
                 {
                     b.HasOne("ProductManagementAPI.Entities.Product", null)
                         .WithMany("Attributes")
-                        .HasForeignKey("ProductSKU1");
+                        .HasForeignKey("ProductSKU")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ProductManagementAPI.Entities.Product", b =>
