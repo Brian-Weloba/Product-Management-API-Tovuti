@@ -1,5 +1,6 @@
+using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ProductManagementAPI.Dtos;
 using ProductManagementAPI.Entities;
@@ -11,84 +12,76 @@ namespace ProductManagementAPI.Controllers
     [Route("productCategories")]
     public class CategoriesController : ControllerBase
     {
-        private readonly IProductsCategoryRepo repo;
+        private readonly ICategoryRepository _repo;
 
-        public CategoriesController(IProductsCategoryRepo repo)
+        public CategoriesController(ICategoryRepository _repo)
         {
-            this.repo = repo;
+            this._repo = _repo;
         }
         //GET /productCategories
         [HttpGet]
-        public IEnumerable<CategoryDto> GetCategories()
+        public async Task<ActionResult<IEnumerable<CategoryDto>>> GetCategories()
         {
-            var categories = repo.getProductCategories().Select(category => category.AsCategoryDto());
-            return categories;
+            var categories = await _repo.getProductCategories();
+            return Ok(categories);
         }
 
         //GET /productCategories/{id}
         [HttpGet("{id}")]
-        public ActionResult<CategoryDto> getCategory(int id)
+        public async Task<ActionResult<CategoryDto>> getCategory(Guid id)
         {
-            var category = repo.GetProductCategory(id);
+            var category = await _repo.GetProductCategory(id);
 
             if (category is null)
             {
                 return NotFound();
             }
 
-            return category.AsCategoryDto();
-
+            return Ok(category.AsCategoryDto());
         }
 
+        //POST /productCategory
         [HttpPost("/productCategory")]
-        public ActionResult<CategoryDto> CreateCAtegory(CreateCategoryDto categoryDto)
+        public async Task<ActionResult<CategoryDto>> CreateCategory(CreateCategoryDto categoryDto)
         {
             ProductCategory productCategory = new()
             {
-                Id = categoryDto.Id,
                 Name = categoryDto.Name,
                 Description = categoryDto.Description
             };
 
-            repo.CreateProductCategory(productCategory);
-
-            return CreatedAtAction(nameof(GetCategories), new { id = categoryDto.Id }, productCategory.AsCategoryDto());
+            await _repo.CreateProductCategory(productCategory);
+            return Ok();
         }
 
+        //PUT /productCategories/{id}
         [HttpPut("{id}")]
-        public ActionResult UpdateCategory(int id, UpdateCategoryDto categoryDto)
+        public async Task<ActionResult> UpdateCategory(Guid id, UpdateCategoryDto categoryDto)
         {
-            var existingCategory = repo.GetProductCategory(id);
-
-            if (existingCategory is null)
-            {
-                return NotFound();
-            }
-
-            ProductCategory updatedCategory = existingCategory with
+            ProductCategory updatedCategory = new()
             {
                 Name = categoryDto.Name,
                 Description = categoryDto.Description
             };
 
-            repo.UpdateProductCategory(updatedCategory);
-
-            return NoContent();
+            await _repo.UpdateProductCategory(updatedCategory);
+            return Ok();
         }
 
+        //DELETE /productCategories/{id}
         [HttpDelete("{id}")]
-        public ActionResult DeleteCategory(int id)
+        public async Task<ActionResult> DeleteCategory(Guid id)
         {
-            var existingCategory =repo.GetProductCategory(id);
+            var existingCategory = _repo.GetProductCategory(id);
 
             if (existingCategory is null)
             {
                 return NoContent();
             }
 
-            repo.DeleteProductCategory(id);
+            await _repo.DeleteProductCategory(id);
 
-            return NoContent();
+            return Ok();
 
         }
 

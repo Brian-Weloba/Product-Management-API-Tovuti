@@ -28,5 +28,16 @@ namespace ProductManagementAPI
                 Description = productCategory.Description
             };
         }
+
+        public static AttributeDto AsAttributeDto(this ProductAttributes productAttributes)
+        {
+            return new AttributeDto
+            {
+                Id = productAttributes.Id,
+                Name = productAttributes.Name,
+                ProductSKU = productAttributes.ProductSKU,
+                AttributeValues = productAttributes.AttributeValues
+            };
+        }
     }
 }
