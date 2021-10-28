@@ -11,7 +11,7 @@ using ProductManagementAPI.Entities;
 namespace ProductManagementAPI.Migrations
 {
     [DbContext(typeof(ProductContext))]
-    [Migration("20211027113449_initial")]
+    [Migration("20211028014048_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -57,7 +57,10 @@ namespace ProductManagementAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("ProductSKU1")
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<Guid?>("ProductSKU1")
                         .HasColumnType("uuid");
 
                     b.Property<List<string>>("attributeValues")
@@ -70,13 +73,29 @@ namespace ProductManagementAPI.Migrations
                     b.ToTable("ProductAttributes");
                 });
 
+            modelBuilder.Entity("ProductManagementAPI.Entities.ProductCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProductCategory");
+                });
+
             modelBuilder.Entity("ProductManagementAPI.Entities.ProductAttributes", b =>
                 {
                     b.HasOne("ProductManagementAPI.Entities.Product", null)
                         .WithMany("Attributes")
-                        .HasForeignKey("ProductSKU1")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProductSKU1");
                 });
 
             modelBuilder.Entity("ProductManagementAPI.Entities.Product", b =>

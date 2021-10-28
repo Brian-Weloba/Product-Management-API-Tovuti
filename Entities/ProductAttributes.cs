@@ -6,6 +6,7 @@ namespace ProductManagementAPI.Entities{
     public record ProductAttributes{
         [Key]
         public Guid ProductSKU{get;set;}
-        public List<string> attributeValues{get;init;} 
+        public string Name {get;set;}
+        public List<string> attributeValues{get;set;} 
     }
 }

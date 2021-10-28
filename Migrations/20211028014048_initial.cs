@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace ProductManagementAPI.Migrations
 {
@@ -8,6 +9,20 @@ namespace ProductManagementAPI.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "ProductCategory",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    Description = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductCategory", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Products",
                 columns: table => new
@@ -30,8 +45,9 @@ namespace ProductManagementAPI.Migrations
                 columns: table => new
                 {
                     ProductSKU = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: true),
                     attributeValues = table.Column<List<string>>(type: "text[]", nullable: true),
-                    ProductSKU1 = table.Column<Guid>(type: "uuid", nullable: false)
+                    ProductSKU1 = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -41,7 +57,7 @@ namespace ProductManagementAPI.Migrations
                         column: x => x.ProductSKU1,
                         principalTable: "Products",
                         principalColumn: "SKU",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -54,6 +70,9 @@ namespace ProductManagementAPI.Migrations
         {
             migrationBuilder.DropTable(
                 name: "ProductAttributes");
+
+            migrationBuilder.DropTable(
+                name: "ProductCategory");
 
             migrationBuilder.DropTable(
                 name: "Products");

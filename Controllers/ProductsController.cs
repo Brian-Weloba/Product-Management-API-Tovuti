@@ -31,7 +31,7 @@ namespace ProductManagementAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProductDto>>> GetProducts()
         {
-            var products =await  _repo.GetProducts();
+            var products = await _repo.GetProducts();
             return Ok(products);
         }
 
@@ -70,15 +70,16 @@ namespace ProductManagementAPI.Controllers
         [HttpPut("{sku}")]
         public async Task<ActionResult> UpdateProduct(Guid sku, UpdateProductDto productDto)
         {
-            var existingProduct = await _repo.GetProduct(sku);
+            // var existingProduct = await _repo.GetProduct(sku);
 
-            if (existingProduct is null)
-            {
-                return NotFound();
-            }
+            // if (existingProduct is null)
+            // {
+            //     return NotFound();
+            // }
 
-            Product updatedProduct = existingProduct with
+            Product updatedProduct = new()
             {
+                SKU = sku,
                 Name = productDto.Name,
                 Brand = productDto.Brand,
                 Price = productDto.Price,
@@ -87,7 +88,7 @@ namespace ProductManagementAPI.Controllers
 
             await _repo.UpdateProduct(updatedProduct);
 
-            return NoContent();
+            return Ok();
         }
         //DELETE /products/{sku}
         [HttpDelete("{sku}")]
@@ -109,21 +110,22 @@ namespace ProductManagementAPI.Controllers
         [HttpPut("/productAttributes")]
         public async Task<ActionResult> AddAttributes(Guid sku, UpdateProductAttributesDto productDto)
         {
-            var existingProduct =await _repo.GetProduct(sku);
+            // var existingProduct =await _repo.GetProduct(sku);
 
-            if (existingProduct is null)
-            {
-                return NotFound();
-            }
+            // if (existingProduct is null)
+            // {
+            //     return NotFound();
+            // }
 
-            Product updatedProduct = existingProduct with
+            Product updatedProduct = new()
             {
+                SKU = sku,
                 Attributes = productDto.Attributes
             };
 
-            await _repo.UpdateProduct(updatedProduct);
+            await _repo.UpdateAttributes(updatedProduct);
 
-            return NoContent();
+            return Ok();
         }
     }
 }

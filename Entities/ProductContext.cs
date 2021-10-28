@@ -11,5 +11,8 @@ namespace ProductManagementAPI.Entities
         }
 
         public DbSet<Product> Products {get; set;}
+        public DbSet<ProductCategory> ProductCategory {get; set;}
+        public DbSet<ProductAttributes> ProductAttributes {get; set;}
+
     }
 }

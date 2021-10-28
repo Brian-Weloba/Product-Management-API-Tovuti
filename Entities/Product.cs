@@ -9,15 +9,15 @@ namespace ProductManagementAPI.Entities
 
         private Random random = new Random();
         // public string Vendor { get; init; }
-        public string Name { get; init; }
-        public string Brand { get; init; }
-        public decimal Price { get; init; }
-        public int Quantity { get; init; }
+        public string Name { get; set; }
+        public string Brand { get; set; }
+        public decimal Price { get; set; }
+        public int Quantity { get; set; }
         public int CategoryId { get; init; }
         public DateTimeOffset CreatedDate { get; init; }
         [Key]
         public Guid SKU { get; set; }
-        public List<ProductAttributes> Attributes { get; init; }
+        public List<ProductAttributes> Attributes { get; set; }
 
         // public Product(string vendor, string name, string brand, decimal price, int quantity, DateTimeOffset createdDate, Dictionary<string, string> attributes)
         // {

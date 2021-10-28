@@ -12,5 +12,6 @@ namespace ProductManagementAPI.Repositories
         Task CreateProduct(Product product);
         Task UpdateProduct(Product updatedProduct);
         Task DeleteProduct(Guid sku);
+        Task UpdateAttributes(Product updatedProduct);
     }
 }
