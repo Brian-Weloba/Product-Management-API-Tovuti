@@ -2,6 +2,7 @@ using System;
 
 namespace ProductManagementAPI.Entities
 {
+    //Product categories model
     public record ProductCategory
     {
 

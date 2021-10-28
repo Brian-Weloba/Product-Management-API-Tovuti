@@ -40,6 +40,7 @@ namespace ProductManagementAPI.Controllers
             return Ok(category.AsCategoryDto());
         }
 
+        //POST /productCategory
         [HttpPost("/productCategory")]
         public async Task<ActionResult<CategoryDto>> CreateCategory(CreateCategoryDto categoryDto)
         {
@@ -53,6 +54,7 @@ namespace ProductManagementAPI.Controllers
             return Ok();
         }
 
+        //PUT /productCategories/{id}
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateCategory(Guid id, UpdateCategoryDto categoryDto)
         {
@@ -66,6 +68,7 @@ namespace ProductManagementAPI.Controllers
             return Ok();
         }
 
+        //DELETE /productCategories/{id}
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteCategory(Guid id)
         {

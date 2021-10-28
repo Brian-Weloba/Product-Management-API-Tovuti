@@ -14,10 +14,5 @@ namespace ProductManagementAPI.Dtos
         [Required]
         [Range(1, 1000)]
         public int Quantity { get; init; }
-        // public Guid SKU { get; init; }
-        // public CreateProductDto()
-        // {
-        //     SKU = Guid.NewGuid();
-        // }
     }
 }

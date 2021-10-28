@@ -8,6 +8,7 @@ using System.Xml.Serialization;
 
 namespace ProductManagementAPI.Entities
 {
+    //Attributes for a product with variants
     public record ProductAttributes
     {
         [Key]
