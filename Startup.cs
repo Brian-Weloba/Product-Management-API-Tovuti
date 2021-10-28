@@ -25,13 +25,10 @@ namespace ProductManagementAPI
         public void ConfigureServices(IServiceCollection services)
         {
 
-            //         "ConnectionStrings": {
-            //     "DefaultConnection": "Host=localhost;Port=5432;Username=postgres;Password=flamingo;Database=ProductManagementAPI;"
-            // }
-            // services.AddDbContext<ProductContext>(options =>
-            // options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<ProductDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DB_CONNECTION_STRING")));
             services.AddControllers();
-            services.AddDbContext<ProductContext>();
+            services.AddDbContext<ProductDbContext>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();

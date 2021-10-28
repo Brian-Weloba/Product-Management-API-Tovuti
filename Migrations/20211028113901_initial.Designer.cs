@@ -9,7 +9,7 @@ using ProductManagementAPI.Entities;
 
 namespace ProductManagementAPI.Migrations
 {
-    [DbContext(typeof(ProductContext))]
+    [DbContext(typeof(ProductDbContext))]
     [Migration("20211028113901_initial")]
     partial class initial
     {

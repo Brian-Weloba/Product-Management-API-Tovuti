@@ -8,8 +8,8 @@ namespace ProductManagementAPI.Repositories
 {
     public class AttributeRepository : IAttributeRepository
     {
-        public readonly ProductContext _context;
-        public AttributeRepository(ProductContext context)
+        public readonly ProductDbContext _context;
+        public AttributeRepository(ProductDbContext context)
         {
             _context = context;
         }

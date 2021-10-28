@@ -8,8 +8,8 @@ namespace ProductManagementAPI.Repositories
 {
     public class CategoryRepository : ICategoryRepository
     {
-        public readonly ProductContext _context;
-        public CategoryRepository(ProductContext context)
+        public readonly ProductDbContext _context;
+        public CategoryRepository(ProductDbContext context)
         {
             _context = context;
         }

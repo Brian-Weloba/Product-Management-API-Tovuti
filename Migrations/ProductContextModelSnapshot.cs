@@ -8,7 +8,7 @@ using ProductManagementAPI.Entities;
 
 namespace ProductManagementAPI.Migrations
 {
-    [DbContext(typeof(ProductContext))]
+    [DbContext(typeof(ProductDbContext))]
     partial class ProductContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
