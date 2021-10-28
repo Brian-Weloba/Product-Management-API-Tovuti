@@ -1,8 +1,11 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using ProductManagementAPI.Entities;
+using Microsoft.Extensions.Logging;
 
 namespace ProductManagementAPI
 {
@@ -10,14 +13,7 @@ namespace ProductManagementAPI
     {
         public static void Main(string[] args)
         {
-            var host = CreateHostBuilder(args).Build();
-            var service = (IServiceScopeFactory)host.Services.GetService(typeof(IServiceScopeFactory));
-
-            using (var db = service.CreateScope().ServiceProvider.GetService<ProductContext>())
-            {
-                db.Database.Migrate();
-            }
-            host.Run();
+            CreateHostBuilder(args).Build().Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

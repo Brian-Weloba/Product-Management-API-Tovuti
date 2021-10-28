@@ -24,9 +24,14 @@ namespace ProductManagementAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ProductContext>(options =>
-            options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
 
+            //         "ConnectionStrings": {
+            //     "DefaultConnection": "Host=localhost;Port=5432;Username=postgres;Password=flamingo;Database=ProductManagementAPI;"
+            // }
+            // services.AddDbContext<ProductContext>(options =>
+            // options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddControllers();
+            services.AddDbContext<ProductContext>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();

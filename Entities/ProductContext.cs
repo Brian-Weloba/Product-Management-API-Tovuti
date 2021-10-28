@@ -4,9 +4,10 @@ namespace ProductManagementAPI.Entities
 {
     public class ProductContext : DbContext
     {
-        public ProductContext(DbContextOptions<ProductContext> options)
-            : base(options)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            optionsBuilder.UseSqlServer(
+                @"Server=(localdb)\mssqllocaldb;Database=ProductManagement;Trusted_Connection=True");
         }
 
         public DbSet<Product> Products { get; set; }
