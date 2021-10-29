@@ -29,6 +29,7 @@ namespace ProductManagementAPI
             services.AddControllers();
             services.AddDbContext<ProductDbContext>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            services.AddScoped<ICompositeRepository, CompositeProductRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IAttributeRepository, AttributeRepository>();

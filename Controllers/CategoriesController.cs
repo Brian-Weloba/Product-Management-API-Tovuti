@@ -22,7 +22,7 @@ namespace ProductManagementAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CategoryDto>>> GetCategories()
         {
-            var categories = await _repo.getProductCategories();
+            var categories = await _repo.GetProductCategories();
             return Ok(categories);
         }
 
@@ -60,6 +60,7 @@ namespace ProductManagementAPI.Controllers
         {
             ProductCategory updatedCategory = new()
             {
+                Id = id,
                 Name = categoryDto.Name,
                 Description = categoryDto.Description
             };
