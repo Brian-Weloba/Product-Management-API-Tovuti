@@ -13,5 +13,6 @@ namespace ProductManagementAPI.Repositories
         Task UpdateProduct(Product updatedProduct);
         Task DeleteProduct(Guid sku);
         Task AddCategoryId(Product product);
+        Task<IEnumerable<Product>> GetProductByCategory(Guid categoryId);
     }
 }

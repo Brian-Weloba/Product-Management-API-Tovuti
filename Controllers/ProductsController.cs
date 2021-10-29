@@ -47,6 +47,13 @@ namespace ProductManagementAPI.Controllers
             return Ok(product.AsProductDto());
         }
 
+        [HttpGet("{categoryId}")]
+        public async Task<ActionResult<ProductDto>> GetProductByCategory(Guid categoryId)
+        {
+            var products = await _repo.GetProductByCategory(categoryId);
+            return Ok(products);
+        }
+
         //POST /products
         [HttpPost]
         public async Task<ActionResult<ProductDto>> CreateProduct(CreateProductDto productDto)
@@ -130,5 +137,6 @@ namespace ProductManagementAPI.Controllers
             await _repo.AddCategoryId(updatedProduct);
             return Ok();
         }
+
     }
 }

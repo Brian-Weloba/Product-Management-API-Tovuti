@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ProductManagementAPI.Entities;
@@ -45,9 +46,16 @@ namespace ProductManagementAPI.Repositories
             return await _context.Products.FindAsync(sku);
         }
 
+        public async Task<IEnumerable<Product>> GetProductByCategory(Guid categoryId)
+        {
+            return await _context.Products.Where(s => s.CategoryId.Equals(categoryId)).ToListAsync();
+
+        }
+
         public async Task<IEnumerable<Product>> GetProducts()
         {
-            return await _context.Products.ToListAsync();
+            return await _context.Products.ToListAsync()
+                ;
         }
         public async Task UpdateProduct(Product updatedProduct)
         {
