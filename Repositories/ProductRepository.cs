@@ -13,6 +13,17 @@ namespace ProductManagementAPI.Repositories
         {
             _context = context;
         }
+
+        public async Task AddCategoryId(Product product)
+        {
+            var itemToUpdate = await _context.Products.FindAsync(product.SKU);
+            if (itemToUpdate is null)
+                throw new NullReferenceException();
+
+            itemToUpdate.CategoryId = product.CategoryId;
+            await _context.SaveChangesAsync();
+        }
+
         public async Task CreateProduct(Product product)
         {
             _context.Products.Add(product);
@@ -38,19 +49,6 @@ namespace ProductManagementAPI.Repositories
         {
             return await _context.Products.ToListAsync();
         }
-
-        // public async Task UpdateAttributes(Product updatedProduct)
-        // {
-        //     var itemToUpdate = await _context.Products.FindAsync(updatedProduct.SKU);
-        //     if (itemToUpdate is null)
-        //         throw new NullReferenceException();
-
-        //     itemToUpdate.Attributes = updatedProduct.Attributes;
-
-        //     await _context.SaveChangesAsync();
-
-        // }
-
         public async Task UpdateProduct(Product updatedProduct)
         {
             var itemToUpdate = await _context.Products.FindAsync(updatedProduct.SKU);

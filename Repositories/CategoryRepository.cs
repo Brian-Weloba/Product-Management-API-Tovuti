@@ -30,7 +30,7 @@ namespace ProductManagementAPI.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<ProductCategory>> getProductCategories()
+        public async Task<IEnumerable<ProductCategory>> GetProductCategories()
         {
             return await _context.ProductCategory.ToListAsync();
         }
@@ -48,6 +48,7 @@ namespace ProductManagementAPI.Repositories
 
             itemToUpdate.Name = updatedProductCategory.Name;
             itemToUpdate.Description = updatedProductCategory.Description;
+            await _context.SaveChangesAsync();
         }
     }
 

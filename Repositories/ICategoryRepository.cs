@@ -9,7 +9,7 @@ namespace ProductManagementAPI.Repositories
     {
         Task CreateProductCategory(ProductCategory productCategory);
         Task DeleteProductCategory(Guid id);
-        Task<IEnumerable<ProductCategory>> getProductCategories();
+        Task<IEnumerable<ProductCategory>> GetProductCategories();
         Task<ProductCategory> GetProductCategory(Guid id);
         Task UpdateProductCategory(ProductCategory updatedProductCategory);
     }

@@ -13,20 +13,16 @@ namespace ProductManagementAPI.Controllers
     [Route("products")]
     public class ProductsController : ControllerBase
     {
-        // private readonly IProductsRepository repository;
-
-        // public ProductsController(IProductsRepository repository)
-        // {
-        //     this.repository = repository;
-        // }
 
         private readonly IProductRepository _repo;
         private readonly IAttributeRepository _attRepo;
+        private readonly ICategoryRepository _catRepo;
 
-        public ProductsController(IProductRepository _repo, IAttributeRepository _attRepo)
+        public ProductsController(IProductRepository _repo, IAttributeRepository _attRepo, ICategoryRepository _catRepo)
         {
             this._repo = _repo;
             this._attRepo = _attRepo;
+            this._catRepo = _catRepo;
         }
 
         [HttpGet]
@@ -37,7 +33,7 @@ namespace ProductManagementAPI.Controllers
         }
 
         //GET /products/{sku}
-        [HttpGet("{sku}")]
+        [HttpGet("product/{sku}")]
         public async Task<ActionResult<ProductDto>> GetProduct(Guid sku)
         {
 
@@ -110,16 +106,28 @@ namespace ProductManagementAPI.Controllers
             // {
             //     return NotFound();
             // }
-
             ProductAttributes updatedProduct = new()
             {
                 ProductSKU = sku,
                 Name = productDto.Name,
-                AttributeValues = productDto.AttributeValues
+                Attributes = productDto.Attributes
             };
 
             await _attRepo.CreateAttribute(updatedProduct);
 
+            return Ok();
+        }
+
+        [HttpPut("{sku}/{categoryId}")]
+        public async Task<ActionResult> SetCategory(Guid sku,Guid categoryId)
+        {
+            Product updatedProduct = new()
+            {
+                SKU = sku,
+                CategoryId = categoryId
+            };
+
+            await _repo.AddCategoryId(updatedProduct);
             return Ok();
         }
     }
