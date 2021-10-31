@@ -23,3 +23,4 @@ ecommerce store.
 I used Swagger UI to render the [API documentation](https://tovutidevchallengeapi.azurewebsites.net/swagger/index.html).
 
 ++++
+Devloped by: Brian Weloba
