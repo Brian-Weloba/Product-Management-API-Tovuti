@@ -1,51 +1,25 @@
-﻿# Project-Management-API
-Attribute
+# TOVUTI GROUP DEVELOPER CHALLENGE
 
-GET
-​/productAttributes
-GET
-​/productAttributeValues​/{id}
-Products
+Product management module is an application feature that allows customers to
+add products and categorize products for easy inventory management in an
+ecommerce store.
 
-PUT
-​/productAttributes
-GET
-​/products
-POST
-​/products
-GET
-​/products​/product​/{sku}
-GET
-​/products​/{categoryId}
-PUT
-​/products​/{sku}
-DELETE
-​/products​/{sku}
-PUT
-​/products​/{sku}​/{categoryId}
-Categories
+## Run the app
+ root-endpoint : https://tovutidevchallengeapi.azurewebsites.net/
+ 
+## Prerequirements
 
-GET
-​/productCategories
-GET
-​/productCategories​/{id}
-PUT
-​/productCategories​/{id}
-DELETE
-​/productCategories​/{id}
-POST
-​/productCategory
-CompositeProduct
+* Visual Studio 2019
+* .NET Core SDK
+* SQL Server
 
-GET
-​/compositeProduct
-POST
-​/compositeProduct
-GET
-​/compositeProduct​/{sku}
-PUT
-​/compositeProduct​/{sku}
-DELETE
-​/compositeProduct​/{sku}
-PUT
-​/compositeProduct​/{sku}​/{categoryId}
+## How To Run
+
+* Open solution in Visual Studio 2019
+* Set .Web project as Startup Project and build the project.
+* Run the application.
+
+# REST API
+I used Swagger UI to render the [API documentation](https://tovutidevchallengeapi.azurewebsites.net/swagger/index.html).
+
+++++
