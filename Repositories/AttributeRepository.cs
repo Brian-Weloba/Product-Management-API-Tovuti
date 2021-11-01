@@ -48,7 +48,7 @@ namespace ProductManagementAPI.Repositories
                 throw new NullReferenceException();
 
             itemToUpdate.Name = updatedProductAttributes.Name;
-            itemToUpdate.AttributeValues = updatedProductAttributes.AttributeValues;
+            itemToUpdate.AttributeValue = updatedProductAttributes.AttributeValue;
 
             await _context.SaveChangesAsync();
         }

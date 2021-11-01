@@ -117,11 +117,61 @@ namespace ProductManagementAPI.Controllers
             {
                 ProductSKU = sku,
                 Name = productDto.Name,
-                Attributes = productDto.Attributes
+                AttributeValue = productDto.AttributeValue
             };
 
             await _attRepo.CreateAttribute(updatedProduct);
 
+            return Ok();
+        }
+
+        [HttpPost("/variantProduct")]
+        public async Task<ActionResult<ProductDto>> AddProductWithAttributes(CreateVariantProductDto variantProduct)
+        {
+            // var existingProduct =await _repo.GetProduct(sku);
+
+            // if (existingProduct is null)
+            // {
+            //     return NotFound();
+            // }
+            Product vProduct = new()
+            {
+                Name = variantProduct.Name,
+                Brand = variantProduct.Brand,
+                Price = variantProduct.Price,
+                Quantity = variantProduct.Quantity,
+                CreatedDate = DateTimeOffset.UtcNow
+            };
+            ProductAttributes aProduct = new()
+            {
+                ProductSKU = vProduct.SKU,
+                Name = variantProduct.AttributeName,
+                AttributeValue = variantProduct.AttributeValue
+            };
+
+            await _repo.CreateProduct(vProduct);
+            await _attRepo.CreateAttribute(aProduct);
+
+            return Ok();
+        }
+
+        [HttpPut("/addAttribute/{sku}")]
+        public async Task<ActionResult> AddProductAttributes(Guid sku, ProductAttributes variantProduct)
+        {
+            ProductAttributes productAtt = new()
+            {
+                ProductSKU = sku,
+                Name = variantProduct.Name,
+                AttributeValue = variantProduct.AttributeValue
+            };
+            List<ProductAttributes> attributes = new();
+            attributes.Add(productAtt);
+            Product updatedProduct = new()
+            {
+                SKU = sku,
+                Attributes = attributes,
+            };
+            await _repo.UpdateProductAtt(updatedProduct);
             return Ok();
         }
 

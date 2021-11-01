@@ -8,6 +8,6 @@ namespace ProductManagementAPI.Dtos
         public Guid Id { get; set; }
         public Guid ProductSKU { get; set; }
         public string Name { get; set; }
-        public List<string> AttributeValues { get; set; }
+        public string AttributeValue { get; set; }
     }
 }

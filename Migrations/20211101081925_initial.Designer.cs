@@ -10,7 +10,7 @@ using ProductManagementAPI.Entities;
 namespace ProductManagementAPI.Migrations
 {
     [DbContext(typeof(ProductDbContext))]
-    [Migration("20211029115858_initial")]
+    [Migration("20211101081925_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -82,7 +82,7 @@ namespace ProductManagementAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Attributes")
+                    b.Property<string>("AttributeValue")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")

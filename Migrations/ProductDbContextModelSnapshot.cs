@@ -80,7 +80,7 @@ namespace ProductManagementAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Attributes")
+                    b.Property<string>("AttributeValue")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
